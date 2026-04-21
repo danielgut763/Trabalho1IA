@@ -35,6 +35,28 @@ A DFS explora profundamente um caminho antes de considerar alternativas, o que f
 
 Além disso, o número de nós expandidos é relativamente menor quando comparado a algoritmos como BFS, pois a DFS não realiza uma exploração sistemática por níveis. Em vez disso, ela segue um único caminho até o fim, retrocedendo apenas quando necessário.
 
+
+### Tarefa 2 - Busca em Largura (BFS / BEL)
+
+#### Resultados - mediumMaze  
+Custo da solução: 68  
+Número de nós expandidos: 269  
+
+#### Resultados - bigMaze  
+Custo da solução: 210  
+Número de nós expandidos: 620  
+
+#### Análise dos resultados
+
+Os resultados obtidos evidenciam o comportamento esperado da Busca em Largura (BFS).
+
+No `mediumMaze`, o algoritmo encontrou uma solução com custo 68, significativamente menor do que o obtido com a DFS, expandindo 269 nós. Já no `bigMaze`, o custo da solução foi 210, com 620 nós expandidos.
+
+A BFS garante encontrar o caminho mais curto em termos de número de ações, o que explica o menor custo observado no `mediumMaze` quando comparado à DFS. No entanto, essa garantia vem com um custo maior de processamento, já que o algoritmo explora todos os estados nível a nível antes de avançar.
+
+Isso se reflete diretamente no número de nós expandidos, que é maior do que na DFS. Esse comportamento ocorre porque a BFS mantém na memória todos os nodos de um nível antes de explorar o próximo.
+
+
 </div>
 
 
