@@ -1,2 +1,61 @@
-# Trabalho1IA
-Trabalho 1 da disciplina de IA UFRGS
+# Relatório
+
+## Identificação
+
+**Nome(s):** Daniel Gut... Leonardo Leites  
+**Matrícula(s):** xxxxxxxx e 00338804
+
+## 1. Comparação experimental (Tarefas 1 - 4)
+
+Executar os algoritmos com `mediumMaze` ou `bigMaze`, reportando:
+
+- custo da solução;
+- número de nós expandidos;
+- análise dos resultados.
+
+<div style="margin-left: 40px;">
+
+### Tarefa 1 - Busca em Profundidade (DFS / BEP)
+
+#### Resultados - mediumMaze  
+Custo da solução: 130  
+Número de nós expandidos: 146  
+
+#### Resultados - bigMaze  
+Custo da solução: 210  
+Número de nós expandidos: 390  
+
+#### Análise dos resultados
+
+Os resultados obtidos confirmam o comportamento esperado da Busca em Profundidade (DFS).
+
+No `mediumMaze`, o algoritmo encontrou uma solução com custo 130, expandindo 146 nós. Já no `bigMaze`, o custo da solução aumentou para 210, com 390 nós expandidos. Esse aumento é esperado devido ao crescimento do espaço de busca.
+
+A DFS explora profundamente um caminho antes de considerar alternativas, o que faz com que encontre soluções rapidamente em alguns casos, porém sem garantir que sejam ótimas. Isso explica os custos relativamente altos das soluções encontradas, especialmente no `bigMaze`.
+
+Além disso, o número de nós expandidos é relativamente menor quando comparado a algoritmos como BFS, pois a DFS não realiza uma exploração sistemática por níveis. Em vez disso, ela segue um único caminho até o fim, retrocedendo apenas quando necessário.
+
+</div>
+
+
+## 2. Modelagem de estado (Corners/Food) — Tarefa 5
+
+Descrever como o estado foi representado. Informar:
+
+- quais aspectos foram incluídos na representação;
+- como os cantos visitados são codificados.
+
+## 3. Heurísticas (admissibilidade + impacto) — Tarefas 6–7
+
+Descrever a heurística utilizada e fornecer justificativa de admissibilidade:
+
+- por que a heurística é admissível;
+- qual foi o impacto no desempenho.
+
+## 4. Declaração de uso de IA
+
+Declarar se foi utilizado algum sistema de IA generativa, como ChatGPT, Claude ou Copilot, e como foi utilizado.
+
+## Observação
+
+O formato é livre, mas o documento deve conter todas as informações acima. A identificação deve ficar no início e ser fácil de localizar. As demais informações podem ser organizadas em seções diferentes.
