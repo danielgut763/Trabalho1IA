@@ -60,12 +60,63 @@ Isso se reflete diretamente no número de nós expandidos, que é maior do que n
 </div>
 
 
+
 ## 2. Modelagem de estado (Corners/Food) — Tarefa 5
 
 Descrever como o estado foi representado. Informar:
 
 - quais aspectos foram incluídos na representação;
 - como os cantos visitados são codificados.
+
+<div style="margin-left: 40px;">
+
+### Tarefa 5 - Problema dos Cantos
+
+#### Representação do estado
+
+O estado foi modelado como uma tupla composta por dois elementos:
+
+- posição atual do Pacman  
+- conjunto de cantos já visitados  
+
+Formalmente, o estado é representado como:
+
+- `(position, visitedCorners)`
+
+onde:
+
+- `position` é uma tupla (x, y) indicando a posição atual do agente no labirinto  
+- `visitedCorners` é uma coleção dos cantos já visitados pelo agente  
+
+#### Aspectos incluídos na representação
+
+A modelagem do estado inclui apenas as informações essenciais para a resolução do problema:
+
+- posição atual do Pacman  
+- identificação dos cantos já visitados  
+
+Não foram incluídas informações irrelevantes, como:
+
+- posição dos fantasmas  
+- localização de outros alimentos  
+- estado completo do jogo (GameState)  
+
+Essa escolha reduz significativamente o espaço de busca e melhora a eficiência do algoritmo.
+
+#### Codificação dos cantos visitados
+
+Os cantos visitados são armazenados como uma tupla contendo as posições dos cantos já alcançados.
+
+A cada movimento:
+
+- se o Pacman alcança um canto ainda não visitado  
+- esse canto é adicionado à coleção `visitedCorners`  
+
+A utilização de tupla para controle de estados visitados.
+
+Um estado objetivo é definido quando todos os quatro cantos foram visitados, ou seja, quando o número de elementos em `visitedCorners` é igual a quatro.
+
+</div>
 
 ## 3. Heurísticas (admissibilidade + impacto) — Tarefas 6–7
 
