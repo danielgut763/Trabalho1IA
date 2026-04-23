@@ -116,6 +116,12 @@ A utilização de tupla para controle de estados visitados.
 
 Um estado objetivo é definido quando todos os quatro cantos foram visitados, ou seja, quando o número de elementos em `visitedCorners` é igual a quatro.
 
+Durante a implementação, foi necessário garantir uma representação canônica dos cantos visitados. Inicialmente, estados logicamente equivalentes estavam sendo tratados como diferentes devido à ordem dos elementos na estrutura utilizada.
+
+Por exemplo, as representações `(A, B)` e `(B, A)` correspondiam ao mesmo conjunto de cantos visitados, mas eram consideradas distintas pelo algoritmo, o que resultava em expansão redundante de estados.
+
+Para resolver esse problema, foi utilizada a ordenação dos cantos visitados antes de convertê-los para tupla, garantindo uma representação consistente
+
 </div>
 
 ## 3. Heurísticas (admissibilidade + impacto) — Tarefas 6–7

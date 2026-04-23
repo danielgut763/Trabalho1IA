@@ -295,7 +295,10 @@ class CornersProblem(search.SearchProblem):
         space)
         """
         "*** YOUR CODE HERE ***"
-        return (self.startingPosition, tuple()) #exercicio ta pedindo uma tupla ou set
+        visited = []
+        if self.startingPosition in self.corners:
+            visited.append(self.startingPosition)
+        return (self.startingPosition, tuple(sorted(visited)))
         # util.raiseNotDefined()
 
     def isGoalState(self, state):
@@ -322,18 +325,9 @@ class CornersProblem(search.SearchProblem):
         position, corners_visitados = state
 
         for action in [Directions.NORTH, Directions.SOUTH, Directions.EAST, Directions.WEST]:
-            # Add a successor state to the successor list if the action is legal
-            # Here's a code snippet for figuring out whether a new position hits a wall:
-            #   x,y = currentPosition
-            #   dx, dy = Actions.directionToVector(action)
-            #   nextx, nexty = int(x + dx), int(y + dy)
-            #   hitsWall = self.walls[nextx][nexty]
-
-            "*** YOUR CODE HERE ***"
-
                 # x e y são as coordenadas atuais
             x,y = position
-            corners_visitados = corners_visitados
+
                 #dx e dy são as mudanças de coordenada para a ação
             dx, dy = Actions.directionToVector(action)
                 #nextx e nexty são as novas coordenadas após a ação
@@ -349,7 +343,7 @@ class CornersProblem(search.SearchProblem):
                     newVisited.append(nextPosition)
 
                 # cria o sucessor como uma tupla (posição, cantos visitados), ação e custo
-                successor = ( (nextPosition, tuple(newVisited)), action, 1 )
+                successor = ((nextPosition, tuple(sorted(newVisited))), action, 1)
                 
                 successors.append(successor)
 
