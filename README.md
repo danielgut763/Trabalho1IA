@@ -2,8 +2,8 @@
 
 ## Identificação
 
-**Nome(s):** Daniel Gut... Leonardo Leites  
-**Matrícula(s):** xxxxxxxx e 00338804
+**Nome(s):** Daniel Gutschwager e Leonardo Leites  
+**Matrícula(s):** 00315708 e 00338804
 
 ## 1. Comparação experimental (Tarefas 1 - 4)
 
