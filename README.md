@@ -131,6 +131,43 @@ Descrever a heurística utilizada e fornecer justificativa de admissibilidade:
 - por que a heurística é admissível;
 - qual foi o impacto no desempenho.
 
+<div style="margin-left: 40px;">
+
+### Tarefa 6 - Heurística para o CornersProblem
+
+#### Descrição da heurística
+
+A heurística utilizada considera a distância de Manhattan entre a posição atual do Pacman e os cantos que ainda não foram visitados.
+
+A partir da posição atual, o algoritmo estima o custo restante simulando um percurso guloso: a cada passo, seleciona o canto mais próximo, soma a distância até ele e repete o processo até que todos os cantos tenham sido considerados.
+
+Essa abordagem gera uma estimativa do custo total necessário para visitar todos os cantos restantes.
+
+#### Admissibilidade da heurística
+
+A heurística é admissível pois nunca superestima o custo real da solução.
+
+A distância de Manhattan representa a menor distância possível entre dois pontos em um grid sem considerar obstáculos. Como o labirinto possui paredes, o custo real para alcançar um canto pode ser maior ou igual ao valor estimado, mas nunca menor.
+
+Além disso, a soma dessas distâncias ao longo do percurso guloso continua sendo uma subestimação do custo real, pois não considera desvios obrigatórios causados por paredes nem garante o caminho ótimo entre todos os cantos.
+
+Dessa forma, a heurística sempre retorna valores menores ou iguais ao custo real, garantindo a admissibilidade.
+
+#### Resultados   
+Número de nós expandidos: 692  
+
+#### Impacto no desempenho
+
+A utilização da heurística reduziu significativamente o número de nós expandidos.
+
+Sem heurística (BFS), o problema mediumCorners exigia a expansão de mais de 2000 nós. Com a heurística aplicada ao A*, esse número foi reduzido para 692 nós.
+
+Essa redução demonstra que a heurística conseguiu direcionar a busca de forma eficiente, evitando a exploração de regiões irrelevantes do espaço de estados.
+
+Como resultado, o algoritmo tornou-se consideravelmente mais rápido e eficiente, mantendo a garantia de encontrar uma solução ótima.
+
+</div>
+
 ## 4. Declaração de uso de IA
 
 Declarar se foi utilizado algum sistema de IA generativa, como ChatGPT, Claude ou Copilot, e como foi utilizado.
