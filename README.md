@@ -57,6 +57,48 @@ A BFS garante encontrar o caminho mais curto em termos de número de ações, o 
 Isso se reflete diretamente no número de nós expandidos, que é maior do que na DFS. Esse comportamento ocorre porque a BFS mantém na memória todos os nodos de um nível antes de explorar o próximo.
 
 
+### Tarefa 3 - Busca de Custo Uniforme (UCS / BCU)
+
+#### Resultados - mediumMaze  
+Custo da solução: 68  
+Número de nós expandidos: 269  
+
+#### Resultados - bigMaze  
+Custo da solução: 210  
+Número de nós expandidos: 620  
+
+#### Análise dos resultados
+
+Os resultados obtidos com a Busca de Custo Uniforme (UCS) foram idênticos aos da Busca em Largura (BFS).
+
+No `mediumMaze`, o algoritmo encontrou uma solução com custo 68, expandindo 269 nós. Já no `bigMaze`, o custo da solução foi 210, com 620 nós expandidos. Esse comportamento é perfeitamente esperado no problema de busca de posição (`PositionSearchProblem`), pois o custo de cada movimento no labirinto é sempre igual a 1. 
+
+Quando todos os custos de transição são uniformes, a UCS comporta-se de maneira idêntica à BFS, explorando os estados em anéis de custo constante (nível a nível). 
+
+Dessa forma, a UCS também garante a otimalidade da solução encontrada, à custa de uma exploração sistemática que resulta em um maior número de nós expandidos quando comparada à DFS ou a algoritmos informados com heurísticas.
+
+
+### Tarefa 4 - Busca A* (A-Star)
+
+#### Resultados - mediumMaze  
+Custo da solução: 68  
+Número de nós expandidos: 221  
+
+#### Resultados - bigMaze  
+Custo da solução: 210  
+Número de nós expandidos: 549  
+
+#### Análise dos resultados
+
+Os resultados evidenciam a superioridade e a eficiência da busca informada A* (utilizando a heurística de distância de Manhattan).
+
+Em ambos os labirintos, o A* encontrou a mesma solução ótima encontrada pela BFS e pela UCS (custo 68 no `mediumMaze` e 210 no `bigMaze`), o que valida que a heurística de Manhattan é admissível para este problema.
+
+A principal diferença, no entanto, reside na eficiência da busca: no `mediumMaze`, o número de nós expandidos caiu para 221 (contra 269 da UCS/BFS) e no `bigMaze` caiu para 549 (contra 620 da UCS/BFS).
+
+O A* consegue manter a garantia de encontrar o caminho de menor custo, mas expande consideravelmente menos nós por utilizar a estimativa heurística (f(n) = g(n) + h(n)) para direcionar a exploração rumo ao objetivo, evitando investigar exaustivamente caminhos que visivelmente se afastam do destino.
+
+
 </div>
 
 
@@ -165,6 +207,33 @@ Sem heurística (BFS), o problema mediumCorners exigia a expansão de mais de 20
 Essa redução demonstra que a heurística conseguiu direcionar a busca de forma eficiente, evitando a exploração de regiões irrelevantes do espaço de estados.
 
 Como resultado, o algoritmo tornou-se consideravelmente mais rápido e eficiente, mantendo a garantia de encontrar uma solução ótima.
+
+### Tarefa 7 - Heurística para o FoodSearchProblem
+
+#### Descrição da heurística
+
+A heurística utilizada calcula a soma das distâncias de Manhattan da posição atual do Pacman para todas as bolinhas de comida restantes no tabuleiro.
+
+A partir da posição do agente e da lista de comidas fornecida pelo estado, o algoritmo itera sobre cada ponto de comida e soma a distância de Manhattan ($|x_1 - x_2| + |y_1 - y_2|$) correspondente. Essa abordagem gera uma estimativa rápida e simples, mas com características bastante peculiares.
+
+#### Admissibilidade da heurística
+
+A heurística **NÃO é admissível** e, consequentemente, não é consistente.
+
+Para que uma heurística seja admissível, ela nunca pode superestimar o custo real da solução. A soma das distâncias de Manhattan para todas as comidas viola severamente esta regra. Por exemplo: se existirem duas comidas a 1 passo de distância do Pacman e a 1 passo de distância entre si, o custo real de coletar ambas será 2 (1 passo até a primeira + 1 passo até a segunda). No entanto, a heurística retornará $1 + 1 = 2$ apenas das distâncias até o Pacman, sem contar que, após comer a primeira, a distância real até a segunda bolinha não é a mesma da distância original. Em cenários com dezenas de bolinhas, essa estimativa extrapola enormemente o custo real.
+
+Por não ser admissível, o uso desta heurística no algoritmo A* inviabiliza a garantia teórica de encontrar o caminho de menor custo (solução ótima). O autograder, inclusive, reprova esta heurística no teste de consistência.
+
+#### Resultados   
+Número de nós expandidos: 5423 (no tabuleiro `trickySearch`)
+
+#### Impacto no desempenho
+
+Apesar da sua inadmissibilidade e da perda da garantia matemática de otimalidade, a heurística reduziu expressivamente o número de nós expandidos quando comparada com uma busca cega.
+
+Sem heurística informada, a Busca de Custo Uniforme (BCU) chega a expandir mais de 16.000 nós no tabuleiro `trickySearch`. Com a aplicação da soma de distâncias de Manhattan, esse número caiu para 5423 nós. No caso do tabuleiro específico `trickySearch`, a solução acabou encontrando por sorte o custo 60, mas algoritmicamente falando, esta abordagem de superestimação transforma o A* em um algoritmo ganancioso (*Greedy Best-First Search*), preferindo "mergulhar" agressivamente rumo aos nós com menor pontuação heurística.
+
+Em resumo, o desempenho em tempo de execução melhora ao expandir menos nós, mas ao preço de possivelmente gerar soluções sub-ótimas em labirintos complexos e falhar nos testes de admissibilidade teórica requeridos pelo projeto.
 
 </div>
 
