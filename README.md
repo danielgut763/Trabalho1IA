@@ -212,28 +212,30 @@ Como resultado, o algoritmo tornou-se consideravelmente mais rápido e eficiente
 
 #### Descrição da heurística
 
-A heurística utilizada calcula a soma das distâncias de Manhattan da posição atual do Pacman para todas as bolinhas de comida restantes no tabuleiro.
+A heurística utilizada agora é baseada em uma **Árvore Geradora Mínima (MST - Minimum Spanning Tree)** combinada com a distância até a comida mais próxima. 
 
-A partir da posição do agente e da lista de comidas fornecida pelo estado, o algoritmo itera sobre cada ponto de comida e soma a distância de Manhattan ($|x_1 - x_2| + |y_1 - y_2|$) correspondente. Essa abordagem gera uma estimativa rápida e simples, mas com características bastante peculiares.
+Para estimar o custo restante para coletar todas as comidas, o algoritmo faz o seguinte:
+1. Constrói uma MST conectando todas as bolinhas de comida restantes, utilizando a distância de Manhattan entre elas como peso das arestas.
+2. Calcula a distância de Manhattan da posição atual do Pacman até a bolinha de comida mais próxima.
+3. A heurística final é a soma do custo da MST com a distância até essa comida mais próxima.
 
 #### Admissibilidade da heurística
 
-A heurística **NÃO é admissível** e, consequentemente, não é consistente.
+A heurística **É admissível** e consistente.
 
-Para que uma heurística seja admissível, ela nunca pode superestimar o custo real da solução. A soma das distâncias de Manhattan para todas as comidas viola severamente esta regra. Por exemplo: se existirem duas comidas a 1 passo de distância do Pacman e a 1 passo de distância entre si, o custo real de coletar ambas será 2 (1 passo até a primeira + 1 passo até a segunda). No entanto, a heurística retornará $1 + 1 = 2$ apenas das distâncias até o Pacman, sem contar que, após comer a primeira, a distância real até a segunda bolinha não é a mesma da distância original. Em cenários com dezenas de bolinhas, essa estimativa extrapola enormemente o custo real.
+Para que a heurística seja admissível, ela não pode superestimar o custo real. O custo real para coletar todas as comidas obrigatoriamente envolve viajar do Pacman até alguma comida, e depois viajar por todas as comidas restantes. 
+A MST construída com distâncias de Manhattan representa o menor custo necessário apenas para conectar todos os pontos de comida no grid (ignorando as paredes). Somar a distância do Pacman à comida mais próxima fornece uma estimativa de limite inferior sólida para o problema de roteamento. Como a distância de Manhattan relaxa a restrição das paredes (podendo atravessá-las), o valor calculado sempre será menor ou igual à distância real que o Pacman terá que percorrer no labirinto.
 
-Por não ser admissível, o uso desta heurística no algoritmo A* inviabiliza a garantia teórica de encontrar o caminho de menor custo (solução ótima). O autograder, inclusive, reprova esta heurística no teste de consistência.
+Com isso, garantimos a otimalidade da busca A* e passamos no teste de consistência do autograder com sucesso.
 
 #### Resultados   
-Número de nós expandidos: 5423 (no tabuleiro `trickySearch`)
+Número de nós expandidos: 7137 (no tabuleiro `trickySearch`)
 
 #### Impacto no desempenho
 
-Apesar da sua inadmissibilidade e da perda da garantia matemática de otimalidade, a heurística reduziu expressivamente o número de nós expandidos quando comparada com uma busca cega.
+A utilização desta heurística informada e admissível trouxe uma grande melhoria de desempenho, reduzindo drasticamente o espaço de busca explorado.
 
-Sem heurística informada, a Busca de Custo Uniforme (BCU) chega a expandir mais de 16.000 nós no tabuleiro `trickySearch`. Com a aplicação da soma de distâncias de Manhattan, esse número caiu para 5423 nós. No caso do tabuleiro específico `trickySearch`, a solução acabou encontrando por sorte o custo 60, mas algoritmicamente falando, esta abordagem de superestimação transforma o A* em um algoritmo ganancioso (*Greedy Best-First Search*), preferindo "mergulhar" agressivamente rumo aos nós com menor pontuação heurística.
-
-Em resumo, o desempenho em tempo de execução melhora ao expandir menos nós, mas ao preço de possivelmente gerar soluções sub-ótimas em labirintos complexos e falhar nos testes de admissibilidade teórica requeridos pelo projeto.
+Sem heurística (BCU/A* com heurística nula), o algoritmo expande mais de 16.000 nós no tabuleiro `trickySearch`, levando vários segundos para concluir. Com a heurística baseada em MST, o número de nós expandidos cai para apenas 7137. Isso não só agiliza imensamente a obtenção da resposta, mas atende aos requisitos de nós expandidos propostos pela disciplina (ficando bem abaixo do teto de 9000 nós para a nota máxima 4/4), demonstrando o forte poder que heurísticas baseadas em relaxamento de grafos e conectividade têm em problemas que se assemelham ao do caixeiro viajante (TSP).
 
 </div>
 

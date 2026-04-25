@@ -480,9 +480,26 @@ def foodHeuristic(state, problem):
     foodList = foodGrid.asList()
     if not foodList:
         return 0
-    # heurística soma das distancias de Manhattan da posição atual a todas as comidas restantes
-    total_distance = sum(abs(position[0] - f[0]) + abs(position[1] - f[1]) for f in foodList)
-    return total_distance
+
+    mst_cost = 0
+    unvisited = set(foodList)
+    current_food = unvisited.pop()
+    
+    dist_to_mst = {food: abs(current_food[0] - food[0]) + abs(current_food[1] - food[1]) for food in unvisited}
+    
+    while unvisited:
+        next_food = min(unvisited, key=lambda f: dist_to_mst[f])
+        mst_cost += dist_to_mst[next_food]
+        unvisited.remove(next_food)
+        
+        for food in unvisited:
+            dist = abs(next_food[0] - food[0]) + abs(next_food[1] - food[1])
+            if dist < dist_to_mst[food]:
+                dist_to_mst[food] = dist
+                
+    min_dist_to_pacman = min(abs(position[0] - food[0]) + abs(position[1] - food[1]) for food in foodList)
+    
+    return mst_cost + min_dist_to_pacman
 
 class ClosestDotSearchAgent(SearchAgent):
     "Search for all food using a sequence of searches"
