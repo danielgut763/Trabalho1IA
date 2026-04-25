@@ -530,7 +530,9 @@ class ClosestDotSearchAgent(SearchAgent):
         problem = AnyFoodSearchProblem(gameState)
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # util.raiseNotDefined()
+        # bfs encontra o caminho mais curto para o ponto de comida mais próximo
+        return search.bfs(problem)
 
 class AnyFoodSearchProblem(PositionSearchProblem):
     """
@@ -566,7 +568,11 @@ class AnyFoodSearchProblem(PositionSearchProblem):
         x,y = state
 
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        # util.raiseNotDefined()
+
+        #grid é uma matriz de booleanos
+        # self.food == true se tem comida naquela posição, false caso contrário
+        return self.food[x][y];
 
 def mazeDistance(point1, point2, gameState):
     """
