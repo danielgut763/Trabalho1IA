@@ -241,8 +241,10 @@ Sem heurística (BCU/A* com heurística nula), o algoritmo expande mais de 16.00
 
 ## 4. Declaração de uso de IA
 
-Declarar se foi utilizado algum sistema de IA generativa, como ChatGPT, Claude ou Copilot, e como foi utilizado.
+Ferramentas de Inteligência Artificial foram utilizadas como apoio complementar ao longo da elaboração deste trabalho, principalmente na organização textual, revisão de explicações e consulta de conceitos.
 
-## Observação
+O ChatGPT foi empregado principalmente para auxiliar na geração, refinamento e polimento dos textos descritivos presentes no relatório, contribuindo para maior clareza, coesão e estruturação das explicações relacionadas às tarefas desenvolvidas.
 
-O formato é livre, mas o documento deve conter todas as informações acima. A identificação deve ficar no início e ser fácil de localizar. As demais informações podem ser organizadas em seções diferentes.
+Além disso, o NotebookLM foi utilizado como ferramenta de suporte para consulta e organização de conteúdos, auxiliando na localização de informações sobre as atividades propostas, bem como na revisão de conceitos abordados em aula, como algoritmos de busca, heurísticas e propriedades teóricas.
+
+Ressalta-se que a implementação prática, desenvolvimento dos algoritmos, testes, depuração e compreensão técnica das soluções permaneceram sob responsabilidade do autor, sendo as ferramentas de IA utilizadas como suporte de produtividade, organização e revisão textual.
